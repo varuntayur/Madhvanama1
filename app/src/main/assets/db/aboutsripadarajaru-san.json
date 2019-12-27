@@ -1,0 +1,14 @@
+{
+  "lang": "Sanskrit",
+  "sections": [
+    {
+      "name": "About Sripadarajaru",
+      "shlokaList": [{
+        "num": "1",
+        "text": "ॐ ||श्री||"
+      }],
+      "num": "1"
+    }
+  ],
+  "mapSecName2Sec": {}
+}
