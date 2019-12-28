@@ -18,6 +18,7 @@ package com.vtayur.madhvanama.detail.stotra;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -66,11 +68,14 @@ public class StotraInOnePageActivity extends FragmentActivity {
 
         final LinearLayout rootLayout = (LinearLayout) findViewById(R.id.rootLayout);
 
-        Integer menuPosition = getIntent().getIntExtra(BundleArgs.PAGE_NUMBER, 0);
+        int menuPosition = getIntent().getIntExtra(BundleArgs.PAGE_NUMBER, 1);
         List<Shloka> engShlokas = (List<Shloka>) getIntent().getSerializableExtra(BundleArgs.ENG_SHLOKA_LIST);
         List<Shloka> localLangShlokas = (List<Shloka>) getIntent().getSerializableExtra(BundleArgs.LOCAL_LANG_SHLOKA_LIST);
         String sectionName = getIntent().getStringExtra(BundleArgs.SECTION_NAME);
 
+        if (menuPosition <= 0) {
+            menuPosition = 1;
+        }
         rootLayout.setBackgroundResource(DataProvider.getBackgroundColor(menuPosition - 1));
 
         TextView tvTitle = (TextView) findViewById(R.id.sectiontitle);
@@ -92,8 +97,9 @@ public class StotraInOnePageActivity extends FragmentActivity {
             localLang.setTypeface(typeface);
             localLang.setText(shlokaPair.second.getText());
 
-            TextView engLang = new TextView(this);
-            engLang.setText(shlokaPair.first.getText());
+            WebView engLang = new WebView(this);
+            engLang.setBackgroundColor(Color.TRANSPARENT);
+            engLang.loadData(shlokaPair.first.getText().isEmpty() ? shlokaPair.first.getFormattedExplanation() : "", "text/html", null);
 
             ll.addView(localLang);
             ll.addView(engLang);
@@ -146,14 +152,14 @@ public class StotraInOnePageActivity extends FragmentActivity {
             Log.d(TAG, "Done with all streams for media playback");
             ImageButton playButton = (ImageButton) curActivity.findViewById(R.id.imageButtonPlay);
             playButton.setClickable(true);
-            if(mediaPlayer!=null) {
+            if (mediaPlayer != null) {
                 mediaPlayer.reset();
                 mediaPlayer.release();
-                mediaPlayer=null;
+                mediaPlayer = null;
             }
 
             Log.d(TAG, "playMediaTrack, how many more to go? " + playCounter.get());
-            if(playCounter.decrementAndGet() >= 0) {
+            if (playCounter.decrementAndGet() >= 0) {
                 Log.d(TAG, "playMediaTrack, how many more to go? " + playCounter.get());
                 mediaResIterator = mediaResources.iterator();
                 playMediaTrack(curActivity);
@@ -172,10 +178,10 @@ public class StotraInOnePageActivity extends FragmentActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 Log.d(TAG, "Release before next media stream is played");
-                if(mediaPlayer!=null) {
+                if (mediaPlayer != null) {
                     mediaPlayer.reset();
                     mediaPlayer.release();
-                    mediaPlayer=null;
+                    mediaPlayer = null;
                 }
                 Log.d(TAG, "Requesting for continuing next media stream");
                 playMediaTrack(curActivity);
@@ -188,10 +194,10 @@ public class StotraInOnePageActivity extends FragmentActivity {
                 Log.d(TAG, "Error encountered streams media playback");
                 ImageButton playButton = (ImageButton) curActivity.findViewById(R.id.imageButtonPlay);
                 playButton.setClickable(true);
-                if(mediaPlayer!=null) {
+                if (mediaPlayer != null) {
                     mediaPlayer.reset();
                     mediaPlayer.release();
-                    mediaPlayer=null;
+                    mediaPlayer = null;
                 }
                 return false;
             }

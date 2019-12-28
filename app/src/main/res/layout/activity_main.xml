@@ -24,12 +24,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/seeAlsoMadhvanama"
+                android:id="@+id/seeAlsoAdvert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/madhvanamaAdLayout"
-                android:layout_toRightOf="@+id/madhvanamaAdLayout"
-                android:onClick="launchMadhvanama"
+                android:layout_alignTop="@+id/advtLayout"
+                android:layout_toRightOf="@+id/advtLayout"
+                android:onClick="launchAdvert"
                 android:text="See Also"
                 android:textColor="#040404"
                 android:textSize="15dp"
@@ -43,7 +43,7 @@
                 android:padding="5dp">
 
                 <LinearLayout
-                    android:id="@+id/madhvanamaAdLayout"
+                    android:id="@+id/advtLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -51,35 +51,35 @@
                     android:padding="3dp">
 
                     <ImageView
-                        android:id="@+id/imageMadhvanama"
+                        android:id="@+id/advertImage"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:onClick="launchMadhvanama"
-                        app:srcCompat="@drawable/madhvanama" />
+                        android:onClick="launchAdvert"
+                        app:srcCompat="@drawable/advert" />
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/titleMadhvanama"
+                    android:id="@+id/advtTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/madhvanamaAdLayout"
-                    android:layout_toRightOf="@+id/madhvanamaAdLayout"
-                    android:onClick="launchMadhvanama"
-                    android:text="Madhvanama"
+                    android:layout_alignTop="@+id/advtLayout"
+                    android:layout_toRightOf="@+id/advtLayout"
+                    android:onClick="launchAdvert"
+                    android:text="@string/advtTitle"
                     android:textColor="#040404"
                     android:textSize="15dp"
                     android:textStyle="bold"
                     android:typeface="sans" />
 
                 <TextView
-                    android:id="@+id/madhvanamaDetails"
+                    android:id="@+id/advertDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/titleMadhvanama"
+                    android:layout_below="@+id/advtTitle"
                     android:layout_marginTop="1dp"
-                    android:layout_toRightOf="@+id/madhvanamaAdLayout"
-                    android:onClick="launchMadhvanama"
-                    android:text="@string/madhvanamaAdvtText"
+                    android:layout_toRightOf="@+id/advtLayout"
+                    android:onClick="launchAdvert"
+                    android:text="@string/advtText"
                     android:textColor="#343434"
                     android:textSize="10dp" />
             </RelativeLayout>

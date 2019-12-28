@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.vtayur.madhvanama.R;
-import com.vtayur.madhvanama.data.model.Sukta;
+import com.vtayur.madhvanama.data.model.Madhvanama;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class DataProvider {
 
     private static final String TAG = "DataProvider";
 
-    public static final String PREFS_NAME = "Sukta";
+    public static final String PREFS_NAME = "Madhvanama";
     public static final String SHLOKA_DISP_LANGUAGE = "localLanguage";
     public static final String LEARNING_MODE = "learningMode";
     public static final String REPEAT_SHLOKA = "repeatShlokaCount";
@@ -33,7 +33,7 @@ public class DataProvider {
 
     private static final Gson gson = new Gson();
     // map data from a language -> list-of-suktas {durga-sukta, narayana-sukta etc.}
-    private static final Map<String, List<Sukta>> lang2Sukta = new ConcurrentHashMap<>();
+    private static final Map<String, List<Madhvanama>> lang2Sukta = new ConcurrentHashMap<>();
 
 
     private static List<Integer> mBackgroundColors = new ArrayList<Integer>() {
@@ -60,10 +60,10 @@ public class DataProvider {
 
         String anyResource = lang2Sukta.keySet().iterator().next();
 
-        List<Sukta> suktas = DataProvider.getSukta(Language.getLanguageEnum(anyResource));
+        List<Madhvanama> madhvanamas = DataProvider.getSukta(Language.getLanguageEnum(anyResource));
 
-        for (Sukta sukta : suktas) {
-            menuNames.addAll(sukta.getSectionNames());
+        for (Madhvanama madhvanama : madhvanamas) {
+            menuNames.addAll(madhvanama.getSectionNames());
         }
         menuNames.remove("Introduction");
         menuNames.add(0, "Introduction");
@@ -96,27 +96,27 @@ public class DataProvider {
 
             InputStream open = am.open(srcPath);
 
-            Sukta sukta = gson.fromJson(new BufferedReader(new InputStreamReader(open, "UTF-8")),
-                    Sukta.class);
+            Madhvanama madhvanama = gson.fromJson(new BufferedReader(new InputStreamReader(open, "UTF-8")),
+                    Madhvanama.class);
 
-            if (lang2Sukta.containsKey(sukta.getLang())) { // entry already exists in the map
+            if (lang2Sukta.containsKey(madhvanama.getLang())) { // entry already exists in the map
 
-                List<Sukta> existingSuktas = lang2Sukta.get(sukta.getLang());
+                List<Madhvanama> existingMadhvanamas = lang2Sukta.get(madhvanama.getLang());
 
                 //validate before adding
-                Optional<Sukta> existingSukta = getSukta(Language.getLanguageEnum(sukta.getLang()), sukta.getSectionNames().stream().findFirst().get());
+                Optional<Madhvanama> existingSukta = getSukta(Language.getLanguageEnum(madhvanama.getLang()), madhvanama.getSectionNames().stream().findFirst().get());
 
                 if (!existingSukta.isPresent()) {
-                    existingSuktas.add(sukta);
+                    existingMadhvanamas.add(madhvanama);
                 }
 
             } else {
 
-                List<Sukta> existingSuktas = new ArrayList<>();
+                List<Madhvanama> existingMadhvanamas = new ArrayList<>();
 
-                existingSuktas.add(sukta);
+                existingMadhvanamas.add(madhvanama);
 
-                lang2Sukta.put(sukta.getLang(), existingSuktas);
+                lang2Sukta.put(madhvanama.getLang(), existingMadhvanamas);
             }
 
             Log.d(TAG, String.format("* Finished de-serializing the file - %s *", srcPath));
@@ -126,16 +126,16 @@ public class DataProvider {
         }
     }
 
-    public static List<Sukta> getSukta(Language lang) {
+    public static List<Madhvanama> getSukta(Language lang) {
         return lang2Sukta.get(lang.toString());
     }
 
-    public static Optional<Sukta> getSukta(Language lang, String suktaName) {
-        List<Sukta> allSuktas = lang2Sukta.get(lang.toString());
+    public static Optional<Madhvanama> getSukta(Language lang, String suktaName) {
+        List<Madhvanama> allMadhvanamas = lang2Sukta.get(lang.toString());
 
-        for (Sukta sukta : allSuktas) {
-            if (sukta.getSectionNames().contains(suktaName))
-                return Optional.of(sukta);
+        for (Madhvanama madhvanama : allMadhvanamas) {
+            if (madhvanama.getSectionNames().contains(suktaName))
+                return Optional.of(madhvanama);
         }
         return Optional.empty();
     }

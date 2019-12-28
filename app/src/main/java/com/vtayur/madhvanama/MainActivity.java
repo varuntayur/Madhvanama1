@@ -87,9 +87,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void launchMadhvanama(View v) {
+    public void launchAdvert(View v) {
         Intent intent = new Intent("android.intent.action.VIEW");
-        intent.setData(Uri.parse("market://details?id=com.vtayur.madhvanama"));
+        intent.setData(Uri.parse("market://details?id=com.vtayur.sriharivayusthuthi"));
         startActivity(intent);
     }
 

@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Created by vtayur on 8/19/2014.
  */
-public class Sukta implements Serializable {
+public class Madhvanama implements Serializable {
 
     @SerializedName("lang")
     private String lang;
@@ -21,12 +21,12 @@ public class Sukta implements Serializable {
 
     private Map<String, com.vtayur.madhvanama.data.model.Section> mapSecName2Sec = new LinkedHashMap<String, Section>();
 
-    public Sukta() {
+    public Madhvanama() {
     }
 
     @Override
     public String toString() {
-        return "Sukta{" +
+        return "Madhvanama{" +
                 "sections=" + sections +
                 '}';
     }
@@ -63,10 +63,10 @@ public class Sukta implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Sukta sukta = (Sukta) o;
+        Madhvanama madhvanama = (Madhvanama) o;
 
-        if (lang != null ? !lang.equals(sukta.lang) : sukta.lang != null) return false;
-        return sections != null ? sections.equals(sukta.sections) : sukta.sections == null;
+        if (lang != null ? !lang.equals(madhvanama.lang) : madhvanama.lang != null) return false;
+        return sections != null ? sections.equals(madhvanama.sections) : madhvanama.sections == null;
     }
 
     @Override

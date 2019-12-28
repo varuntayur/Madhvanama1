@@ -46,7 +46,7 @@ public enum SuktaMenu {
         }
     };
 
-    private static final String TAG = "Sukta";
+    private static final String TAG = "Madhvanama";
     private String menuDisplayName;
 
     SuktaMenu(String menu) {
