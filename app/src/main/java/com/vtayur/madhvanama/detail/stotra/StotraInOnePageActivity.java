@@ -99,7 +99,7 @@ public class StotraInOnePageActivity extends FragmentActivity {
 
             WebView engLang = new WebView(this);
             engLang.setBackgroundColor(Color.TRANSPARENT);
-            engLang.loadData(shlokaPair.first.getText().isEmpty() ? shlokaPair.first.getFormattedExplanation() : "", "text/html", null);
+            engLang.loadData(shlokaPair.first.getText().isEmpty() ? shlokaPair.first.getFormattedExplanation() : shlokaPair.first.getText(), "text/html", null);
 
             ll.addView(localLang);
             ll.addView(engLang);
